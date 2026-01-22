@@ -82,8 +82,51 @@ const sendResetPasswordConfirmationMail = async (to) => {
     }
 };
 
+const sendAdminCredentials = async (to, password) => {
+	try {
+		await sendMailViaGraph({
+			to,
+			subject: "Welcome to Social Sanitation App: Your Login Credentials",
+			html: `
+				<p>Dear User,</p>
+
+				<p>
+					Welcome to <strong>Social Sanitation App</strong>! You have been
+					successfully registered by our admin. Please find your login
+					credentials below:
+				</p>
+
+				<p>
+					<strong>Email Address:</strong> ${to}<br />
+					<strong>Temporary Password:</strong> ${password}
+				</p>
+
+				<p>
+					For security reasons, we highly recommend changing your password
+					after your first login. If you did not create this account, you
+					can safely ignore this email.
+				</p>
+
+				<p>
+					Best regards,<br />
+					<strong>Social Sanitation Team</strong>
+				</p>
+			`,
+		});
+
+		return true;
+	} catch (error) {
+		console.error("Error sending admin credentials email:", error);
+		throw new ApiError(
+			httpStatus.INTERNAL_SERVER_ERROR,
+			error.message || "Failed to send admin credentials email"
+		);
+	}
+};
+
 module.exports = {
     sendForgotPasswordOTP,
     sendResetPasswordConfirmationMail,
-    sendEmailVerification
+    sendEmailVerification,
+    sendAdminCredentials
 };

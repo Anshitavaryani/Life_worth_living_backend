@@ -22,6 +22,9 @@ const Faq = require('./faq.model');
 const OTP = require('./otp.model');
 
 const Payment = require('./payment.model');
+const Package = require('./package.model');
+const UserPackage = require('./userPackage.model');
+const Video = require('./video.model');
 
 module.exports = {
     Country,
@@ -45,6 +48,9 @@ module.exports = {
     OTP,
 
     Payment,
+    Package,
+    UserPackage,
+    Video
 
 };
 

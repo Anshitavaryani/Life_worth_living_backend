@@ -4,7 +4,7 @@ const router = express.Router();
 const {adminAuthController} = require('../../../controllers');
 const {adminAuthMiddleware} = require('../../../middlewares');
 
-router.post('/register', [adminAuthMiddleware.validateCreateAdminBody], adminAuthController.createAdminUser);
+router.post('/register', adminAuthController.createAdminUser);
 router.post('/login', [adminAuthMiddleware.validateLoginAdminBody], adminAuthController.loginAdminUser);
 router.post('/change-password',  [ adminAuthMiddleware.validateResetPassordBody, adminAuthMiddleware.validateJWTtoken], adminAuthController.resetAdminPassword);
 router.post('/otp',  adminAuthController.sendOTP);

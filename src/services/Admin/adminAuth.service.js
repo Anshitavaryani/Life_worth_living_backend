@@ -8,27 +8,37 @@ const ApiError = require('../../utils/ApiError');
 const config = require('../../config/config');
 const { emailService } = require('../Common');
 const { otpTypes } = require('../../config/types');
+const { sendAdminCredentials } = require('../Common/email.service');
 
 const createAdminUser = async (userBody) => {
-    try {
-        let salt = bcrypt.genSaltSync(10);
-        const userObj = {
-            name: userBody.name,
-            email: userBody.email,
-            password: bcrypt.hashSync(userBody.password, salt),
-            role_id: userBody.role_id,
-            department_id: userBody.department_id
-        };
-        const user = await Admin.create(userObj);
-
-        if (!user) {
-            throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Failed to create User');
-        };
-        return user;
-
-    } catch (error) {
-        throw new ApiError(error.statusCode ? error.statusCode : httpStatus.INTERNAL_SERVER_ERROR, error.message);
+  try {
+    const password = Math.random().toString(36).substring(2, 12);
+    let salt = bcrypt.genSaltSync(10);
+    const adminObj = {
+      name: userBody.name,
+      role_id: userBody.role_id,
+      email: userBody.email,
+      password: bcrypt.hashSync(password, salt),
+    };
+    const adminDoc = await Admin.create(adminObj);
+    if (!adminDoc) {
+      throw new ApiError(httpStatus.NOT_FOUND, "Unable to create admin");
     }
+
+    let isSend = await sendAdminCredentials(userBody.email, password);
+    if (!isSend) {
+      throw new ApiError(
+        httpStatus.INTERNAL_SERVER_ERROR,
+        "Unable to send Credentials to This Email"
+      );
+    }
+    return adminDoc;
+  } catch (error) {
+    throw new ApiError(
+      error.statusCode ? error.statusCode : httpStatus.INTERNAL_SERVER_ERROR,
+      error.message
+    );
+  }
 };
 
 const loginAdminUser = async (reqBody) => {
