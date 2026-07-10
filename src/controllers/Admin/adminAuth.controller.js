@@ -5,6 +5,7 @@ const { adminAuthService } = require('../../services');
 const responseWrapper = require('../../config/responseWrapper');
 
 
+
 const createAdminUser = catchAsync(async (req, res) => {
 
     await adminAuthService.createAdminUser(req.body);
@@ -43,6 +44,39 @@ const forgotAdminPassword = catchAsync(async (req, res) => {
     responseWrapper(res, response, '', httpStatus.OK);
 });
 
+const getProfile = catchAsync(async (req, res) => {
+  const response = await adminAuthService.getProfile(req.body);
+  return responseWrapper(res, response, "Successfully get profile");
+});
+
+const getAllAdmins = catchAsync(async (req, res) => {
+  const users = await adminAuthService.getAllAdmins();
+  res.status(httpStatus.OK).send({
+    code: httpStatus.OK,
+    message: users ? "Success" : "Failed",
+    data: users,
+  });
+});
+
+const findAdminById = catchAsync(async (req, res) => {
+  const adminDoc = await adminAuthService.findAdminById(req.query.id);
+  return responseWrapper(res, adminDoc, "", httpStatus.OK);
+});
+
+const updateAdmin = catchAsync(async (req, res) => {
+  const response = await adminAuthService.updateAdmin(req.body);
+  return responseWrapper(res, response, "Admin Updated Successfully");
+});
+
+const deleteAdmin = catchAsync(async (req, res) => {
+  await adminAuthService.deleteAdmin(req.body);
+  res.status(httpStatus.OK).send({
+    code: httpStatus.NO_CONTENT,
+    message: "Deleted Successfull.",
+    data: "",
+  });
+});
+
 module.exports = {
     createAdminUser,
     loginAdminUser,
@@ -50,4 +84,9 @@ module.exports = {
     sendOTP,
     verifyOTP,
     forgotAdminPassword,
+    getProfile,
+    getAllAdmins,
+    findAdminById,
+    updateAdmin,
+    deleteAdmin,
 };

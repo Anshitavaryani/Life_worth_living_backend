@@ -1,37 +1,52 @@
-const httpStatus = require('http-status');
+/** @format */
 
-const catchAsync = require('../../utils/catchAsync');
-const {contactUsService} = require('../../services');
-const responseWrapper = require('../../config/responseWrapper');
+const httpStatus = require("http-status");
 
+const catchAsync = require("../../utils/catchAsync");
+const { contactUsService } = require("../../services");
+const responseWrapper = require("../../config/responseWrapper");
 
 const createContactUs = catchAsync(async (req, res) => {
-
-    await contactUsService.createContactUs(req.body);
-    return responseWrapper(res, '', 'New Contact Us Data Created Successfully.', httpStatus.CREATED);
+	await contactUsService.createContactUs(req.body);
+	return responseWrapper(
+		res,
+		"",
+		"New Contact Us Data Created Successfully.",
+		httpStatus.CREATED,
+	);
 });
 
 const updateContactUs = catchAsync(async (req, res) => {
-
-    const contactUsDoc = await contactUsService.updateContactUs(req.body, req.params.id);
-    return responseWrapper(res, contactUsDoc, 'Update Successfully.');
+	const contactUsDoc = await contactUsService.updateContactUs(
+		req.body,
+		req.params.id,
+	);
+	return responseWrapper(res, contactUsDoc, "Update Successfully.");
 });
 
 const getAllContactUs = catchAsync(async (req, res) => {
-
-    const contactUs = await contactUsService.getAllContactUs();
-    return responseWrapper(res, contactUs, '');
+	const contactUs = await contactUsService.getAllContactUs();
+	return responseWrapper(res, contactUs, "");
 });
 
 const deleteContactUs = catchAsync(async (req, res) => {
+	await contactUsService.deleteContactUs(req.params.id);
+	return responseWrapper(res, "", "Delete Successfull.");
+});
 
-    await contactUsService.deleteContactUs(req.params.id);
-    return responseWrapper(res, '', 'Delete Successfull.');
+const updateContactUsStatus = catchAsync(async (req, res) => {
+	const contactUsDoc = await contactUsService.updateContactUsStatus(req.body);
+	return responseWrapper(
+		res,
+		contactUsDoc,
+		"Contact status updated successfully.",
+	);
 });
 
 module.exports = {
-    createContactUs,
-    getAllContactUs,
-    updateContactUs,
-    deleteContactUs
+	createContactUs,
+	getAllContactUs,
+	updateContactUs,
+	deleteContactUs,
+	updateContactUsStatus,
 };

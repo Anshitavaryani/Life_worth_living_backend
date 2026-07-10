@@ -28,6 +28,7 @@ const paymentStatusTypes = {
     SUCCESS: 'SUCCESS',
     REJECTED: 'REJECTED',
     REFUNDED: 'REFUNDED',
+    PROCESSING: 'PROCESSING',
 };
 
 const rolesTypes = {
@@ -61,7 +62,8 @@ const currancyTypes = {
     EUR : 'EUR', 
     OMR : 'OMR', 
     CHF : 'CHF', 
-    KYD : 'KYD'
+    KYD : 'KYD',
+    CAD : 'CAD'
 };
 
 module.exports = {

@@ -7,6 +7,9 @@ const tokenService = require('./token.service');
 const countryService = require('./country.service');
 const stateService = require('./state.service');
 const cityService = require('./city.service');
+const packageService = require('./package.service');
+const videoService = require('./video.service');
+const paypalService = require('./paypal.service');
 
 module.exports = {
     roleService,
@@ -18,4 +21,7 @@ module.exports = {
     countryService,
     stateService,
     cityService,
+    packageService,
+    videoService,
+    paypalService
 };

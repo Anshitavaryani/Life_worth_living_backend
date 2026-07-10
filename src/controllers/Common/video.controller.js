@@ -13,7 +13,14 @@ const getAllVideos = catchAsync(async (req, res) => {
     return responseWrapper(res, data, '', httpStatus.OK);
 });
 
+const downloadVideo = catchAsync(async (req, res) => {
+    const data = await videoService.downloadVideo(req.params.id);
+    return responseWrapper(res, data, '', httpStatus.OK);
+});
+
+
 module.exports = {
     createVideo,
-    getAllVideos
+    getAllVideos,
+    downloadVideo
 };

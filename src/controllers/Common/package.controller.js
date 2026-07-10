@@ -13,7 +13,26 @@ const getAllPackages = catchAsync(async (req, res) => {
     return responseWrapper(res, data, '', httpStatus.OK);
 });
 
+const findPackageById = catchAsync(async (req, res) => {
+    const packageDoc = await packageService.findPackageById(req.params.id);
+    return responseWrapper(res, packageDoc, '');
+});
+
+const updatePackage = catchAsync(async (req, res) => {
+    const packageDoc = await packageService.updatePackage(req.body, req.params.id);
+    return responseWrapper(res, packageDoc, 'Package Updated Successfully', httpStatus.OK);
+});
+
+
+const deletePackage = catchAsync(async (req, res) => {
+    await packageService.deletePackage(req.params.id);
+    return responseWrapper(res, '', 'Delete Successfull.');
+});
+
 module.exports = {
     createPackage,
-    getAllPackages
+    getAllPackages,
+    findPackageById,
+    updatePackage,
+    deletePackage
 };

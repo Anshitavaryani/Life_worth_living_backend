@@ -7,6 +7,9 @@ const countryController = require('./country.controller');
 const stateController = require('./state.controller');
 const cityController = require('./city.controller');
 const paymentController = require('./payment.controller');
+const packageController = require('./package.controller');
+const videoController = require('./video.controller');
+const paypalController = require('./paypal.controller');
 
 module.exports = {
     roleController,
@@ -17,4 +20,7 @@ module.exports = {
     stateController,
     cityController,
     paymentController,
+    packageController,
+    videoController,
+    paypalController
 };

@@ -5,7 +5,10 @@ const departmentRoute = require('./department.route');
 const countryRoute = require('./country.route');
 const stateRoute = require('./state.route');
 const cityRoute = require('./city.route');
-const paymentRoute = require('./payment.route');
+// const paymentRoute = require('./payment.route');
+const packageRoute = require('./package.route');
+const videoRoute = require('./video.route');
+const paypalRoute = require('./paypal.route');
 
 const commonRoutes = [
     {
@@ -38,7 +41,15 @@ const commonRoutes = [
     },
     {
         path: '/payment',
-        route: paymentRoute,
+        route: paypalRoute,
+    },
+     {
+        path: '/package',
+        route: packageRoute,
+    },
+     {
+        path: '/video',
+        route: videoRoute,
     },
 ];
 

@@ -10,5 +10,10 @@ router.post('/change-password',  [ adminAuthMiddleware.validateResetPassordBody,
 router.post('/otp',  adminAuthController.sendOTP);
 router.post('/verify-otp',  adminAuthController.verifyOTP);
 router.post('/forgot-password',  adminAuthController.forgotAdminPassword);
+router.put('/updateAdmin',[adminAuthMiddleware.validateJWTtoken],adminAuthController.updateAdmin);
+router.delete('/deleteAdmin',[adminAuthMiddleware.validateJWTtoken],adminAuthController.deleteAdmin);
+router.get('/getAllAdmins',[adminAuthMiddleware.validateJWTtoken],adminAuthController.getAllAdmins);
+router.get('/getProfile',[adminAuthMiddleware.validateJWTtoken],adminAuthController.getProfile);
+router.get('/findAdminById',adminAuthController.findAdminById);
 
 module.exports = router;

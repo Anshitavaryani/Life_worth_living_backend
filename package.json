@@ -21,6 +21,7 @@
   "author": "CA",
   "license": "",
   "dependencies": {
+    "@paypal/checkout-server-sdk": "^1.0.3",
     "axios": "^1.4.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.1",
@@ -56,6 +57,7 @@
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0",
     "uuid": "^9.0.1",
+    "vimeo": "^2.3.1",
     "winston": "^3.8.2"
   },
   "devDependencies": {

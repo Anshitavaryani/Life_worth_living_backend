@@ -7,6 +7,7 @@ const cron = require('node-cron');
 const path = require('path');
 const app = express();
 
+
 const config = require('./src/config/config.js');
 const routes = require('./src/routes/v1');
 const morgan = require('./src/config/morgan.js');
@@ -18,13 +19,19 @@ const ApiError = require('./src/utils/ApiError.js');
 const upload = require('./src/config/multer.js');
 const errorHandler = require('./src/utils/errorHandler.js');
 const logger = require('./src/config/logger.js');
+// const { expireUserPackages } = require('./src/services/Common/paypal.service.js');
 require('./src/models');
 const PUBLIC_DIR = path.resolve(__dirname, './public');
 
 
 cron.schedule('* * * * *', () => {
   logger.info('Hello, I am still Ruining.......😊');
+
 });
+
+// cron.schedule("*/5 * * * *", async () => {
+//   await expireUserPackages();
+// });
 
 // set security HTTP headers
 app.use(helmet());
@@ -85,8 +92,10 @@ app.get('/test', (req, res, next) => {
   res.status(200).send('Hello World !!')
 });
 
+
+
 // Added multer with all v1 api routes
-app.use('/api/v1', upload, routes);
+app.use('/', upload, routes);
 
 // All File Apis
 app.use('/images', express.static(`${PUBLIC_DIR}/uploads/images`));

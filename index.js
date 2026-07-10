@@ -5,19 +5,19 @@ const logger = require('./src/config/logger.js');
 process.env.TZ = config.DEFAULT_TIMEZONE;
 
 // For Http Server
-const http = require('http');
-let servers = http.createServer(app);
+// const http = require('http');
+// let servers = http.createServer(app);
 
 
 // For Https Server
-// let https = require('https');
-// let fs = require('fs');
-// let options = {
-//   key: fs.readFileSync('/home/test/ssl.key'),
-//   cert: fs.readFileSync('/home/test/ssl.cert'),
-//   ca: fs.readFileSync('/home/test/ssl.ca'),
-// };
-// let servers = https.createServer(options, app);
+let https = require('https');
+let fs = require('fs');
+let options = {
+  key: fs.readFileSync('/etc/ssl/virtualmin/17690882161840194/ssl.key'),
+  cert: fs.readFileSync('/etc/ssl/virtualmin/17690882161840194/ssl.cert'),
+  ca: fs.readFileSync('/etc/ssl/virtualmin/17690882161840194/ssl.ca'),
+};
+let servers = https.createServer(options, app);
 
 // Get the current date and time
 const currentTime = moment();
