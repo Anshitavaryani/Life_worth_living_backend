@@ -9,27 +9,24 @@ process.env.TZ = config.DEFAULT_TIMEZONE;
 
 const server = http.createServer(app);
 
-const currentTime = moment();
-
-server.listen(config.port, () => {
+server.listen(config.port, "127.0.0.1", () => {
   logger.info(
     `Server is Working Fine 😊 & Listening to PORT: ${
       config.port
     } | Default Timezone: ${
       process.env.TZ
-    } | Current date and time: ${currentTime.format("YYYY-MM-DD HH:mm:ss")}`
+    } | Current date and time: ${moment().format("YYYY-MM-DD HH:mm:ss")}`
   );
 });
 
-// Server exit operations
 const exitHandler = () => {
   if (server) {
     server.close(() => {
       logger.info("Server closed");
-      process.exit(1);
+      process.exit(0);
     });
   } else {
-    process.exit(1);
+    process.exit(0);
   }
 };
 
@@ -40,4 +37,5 @@ const unexpectedErrorHandler = (error) => {
 
 process.on("uncaughtException", unexpectedErrorHandler);
 process.on("unhandledRejection", unexpectedErrorHandler);
+process.on("SIGINT", exitHandler);
 process.on("SIGTERM", exitHandler);
